@@ -8,8 +8,9 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 
 class player {
-    constructor(position){
+    constructor({position, velocity}){
         this.position = position
+        this.velocity = velocity;
     }
 
     draw(){
@@ -19,10 +20,34 @@ class player {
 }
 
 const player1 = new player({
-    x: 250,
-    y: 250,
+    position: {
+        x: 250,
+        y: 250,
+    },
+    velocity: {
+        x: 10,
+        y: 10,
+    }
+    
 })
 
 player1.draw()
 
-console.log("newest")
+const enemy1 = new player({
+    position: {
+        x: 700,
+        y: 250,
+    },
+    velocity: {
+        x: 10,
+        y: 10,
+    }
+})
+
+enemy1.draw()
+
+function animate(){
+    window.requestAnimationFrame(animate);
+    
+}
+animate()
