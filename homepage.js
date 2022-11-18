@@ -20,7 +20,7 @@ class player {
         this.width = 50
         this.height = 150 
         this.lastKey; // last key pressed in relation to the entity being referenced
-        this.attackBox ={
+        this.attackBox ={ // attack 
             position: {
                 x: this.position.x, 
                 y: this.position.y,
@@ -37,8 +37,8 @@ class player {
         c.fillStyle = this.color // color of player
         c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
 
-        // attack box 
-        if(this.isAttacking){
+        // attack box drawing 
+        if(this.isAttacking){ // draws when player is attacking
             c.fillStyle = "blue"
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
         }
@@ -47,7 +47,7 @@ class player {
 
     update(){ // applied on animation frames. Redraws the player in a different position 
         this.draw()
-        this.attackBox.position.x = this.position.x + this.attackBox.offset.x
+        this.attackBox.position.x = this.position.x + this.attackBox.offset.x // sets position based on player model
         this.attackBox.position.y = this.position.y
         this.position.y += this.velocity.y; // changing the y position based on velocity
         this.position.x += this.velocity.x;
@@ -60,7 +60,7 @@ class player {
 
     }
 
-    attack(){
+    attack(){ // attack function that sets attack to true for a duration
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
@@ -97,7 +97,7 @@ const enemy1 = new player({ // creating player
         x: 0,
         y: 0,
     },
-    offset: {
+    offset: { // where attackbox spawns based on offset
         x: -50,
         y: 0,
     },
@@ -163,7 +163,7 @@ function animate(){
 
     if(player1.attackBox.position.x + player1.attackBox.width >= enemy1.position.x && player1.attackBox.position.x <= enemy1.position.x + enemy1.width
         && player1.attackBox.position.y + player1.attackBox.height >= enemy1.position.y
-        && player1.attackBox.position.y <= enemy1.position.y + enemy1.height
+        && player1.attackBox.position.y <= enemy1.position.y + enemy1.height // if things overlap then things happen
         && player1.isAttacking
         ){
         player1.isAttacking = false;
