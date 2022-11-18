@@ -14,16 +14,27 @@ const gravity = .2; // gravity constant applied to velocity of players
 
 //player object 
 class player {
-    constructor({position, velocity}){
+    constructor({position, velocity, color}){
         this.position = position
         this.velocity = velocity; // speed that player moves in any given directon
+        this.width = 50
         this.height = 150 
         this.lastKey; // last key pressed in relation to the entity being referenced
+        this.attackBox ={
+            position: this.position,
+            width: 100,
+            height: 50,
+        }
+        this.color = color
     }
 
     draw(){ // function in player class that displays it on screen
-        c.fillStyle = 'red' // color of player
-        c.fillRect(this.position.x, this.position.y, 50, this.height) // actual player model rectangle
+        c.fillStyle = this.color // color of player
+        c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
+
+        // attack box 
+        c.fillStyle = "blue"
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
     }
 
     update(){ // applied on animation frames. Redraws the player in a different position 
@@ -48,8 +59,8 @@ const player1 = new player({ // creating new player
     velocity: {
         x: 0,
         y: 0,
-    }
-    
+    },
+    color: "red"
 })
 
 player1.draw() // displays the player created above
@@ -62,7 +73,8 @@ const enemy1 = new player({ // creating player
     velocity: {
         x: 0,
         y: 0,
-    }
+    },
+    color: 'green'
 })
 
 enemy1.draw() // displays player above
@@ -114,6 +126,16 @@ function animate(){
         enemy1.velocity.x = -1
     }else if(keys.ArrowRight.pressed && enemy1.lastKey === 'ArrowRight'){
         enemy1.velocity.x = 1;
+    }
+
+
+    //collision detection 
+
+    if(player1.attackBox.position.x + player1.attackBox.width >= enemy1.position.x && player1.attackBox.position.x <= enemy1.position.x + enemy1.width
+        && player1.attackBox.position.y + player1.attackBox.height >= enemy1.position.y
+        && player1.attackBox.position.y <= enemy1.position.y + enemy1.height
+        ){
+        console.log("hit")
     }
     
 }
