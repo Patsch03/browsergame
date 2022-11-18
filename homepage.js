@@ -14,18 +14,23 @@ const gravity = .2; // gravity constant applied to velocity of players
 
 //player object 
 class player {
-    constructor({position, velocity, color}){
+    constructor({position, velocity, color, offset}){
         this.position = position
         this.velocity = velocity; // speed that player moves in any given directon
         this.width = 50
         this.height = 150 
         this.lastKey; // last key pressed in relation to the entity being referenced
         this.attackBox ={
-            position: this.position,
+            position: {
+                x: this.position.x, 
+                y: this.position.y,
+            },
             width: 100,
             height: 50,
+            offset,
         }
         this.color = color
+        this.isAttacking = false;
     }
 
     draw(){ // function in player class that displays it on screen
@@ -33,12 +38,17 @@ class player {
         c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
 
         // attack box 
-        c.fillStyle = "blue"
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
+        if(this.isAttacking){
+            c.fillStyle = "blue"
+            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
+        }
+
     }
 
     update(){ // applied on animation frames. Redraws the player in a different position 
         this.draw()
+        this.attackBox.position.x = this.position.x + this.attackBox.offset.x
+        this.attackBox.position.y = this.position.y
         this.position.y += this.velocity.y; // changing the y position based on velocity
         this.position.x += this.velocity.x;
         
@@ -49,6 +59,15 @@ class player {
         }
 
     }
+
+    attack(){
+        this.isAttacking = true;
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 100)
+    }
+
+    
 }
 
 const player1 = new player({ // creating new player
@@ -57,6 +76,10 @@ const player1 = new player({ // creating new player
         y: 250,
     },
     velocity: {
+        x: 0,
+        y: 0,
+    },
+    offset: {
         x: 0,
         y: 0,
     },
@@ -72,6 +95,10 @@ const enemy1 = new player({ // creating player
     },
     velocity: {
         x: 0,
+        y: 0,
+    },
+    offset: {
+        x: -50,
         y: 0,
     },
     color: 'green'
@@ -100,7 +127,8 @@ const keys = {
     },
     ArrowRight:{
         pressed: false,
-    }
+    },
+
 }
 
 
@@ -110,6 +138,8 @@ function animate(){
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
     player1.update(); // calls update function which currently changes their position based on velocity 
     enemy1.update(); // ^^
+
+
 
 
     player1.velocity.x = 0; // sets player velocity at 0 constantly unless key is being pushed
@@ -134,7 +164,9 @@ function animate(){
     if(player1.attackBox.position.x + player1.attackBox.width >= enemy1.position.x && player1.attackBox.position.x <= enemy1.position.x + enemy1.width
         && player1.attackBox.position.y + player1.attackBox.height >= enemy1.position.y
         && player1.attackBox.position.y <= enemy1.position.y + enemy1.height
+        && player1.isAttacking
         ){
+        player1.isAttacking = false;
         console.log("hit")
     }
     
@@ -163,7 +195,10 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
                 player1.velocity.y = -10;
             }
             break;
-
+        
+        case ' ':
+            player1.attack();
+            break;
 
         case 'ArrowRight':
             keys.ArrowRight.pressed = true;
