@@ -131,6 +131,14 @@ const keys = {
 
 }
 
+function rectangularCollision({rectangle1, rectangle2}){
+    return(
+        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width
+        && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+        && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.isAttacking
+        )
+}
 
 function animate(){
     window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
@@ -161,13 +169,20 @@ function animate(){
 
     //collision detection 
 
-    if(player1.attackBox.position.x + player1.attackBox.width >= enemy1.position.x && player1.attackBox.position.x <= enemy1.position.x + enemy1.width
-        && player1.attackBox.position.y + player1.attackBox.height >= enemy1.position.y
-        && player1.attackBox.position.y <= enemy1.position.y + enemy1.height // if things overlap then things happen
-        && player1.isAttacking
-        ){
+    if(rectangularCollision({
+        rectangle1: player1,
+        rectangle2: enemy1
+    }) && player1.isAttacking){
         player1.isAttacking = false;
         console.log("hit")
+    }
+
+    if(rectangularCollision({
+        rectangle1: enemy1,
+        rectangle2: player1
+    })&& enemy1.isAttacking) {
+        enemy1.isAttacking = false;
+        console.log("enemy")
     }
     
 }
@@ -198,6 +213,9 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
         
         case ' ':
             player1.attack();
+            break;
+        case 'j':
+            enemy1.attack();
             break;
 
         case 'ArrowRight':
