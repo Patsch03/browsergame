@@ -31,6 +31,7 @@ class player {
         }
         this.color = color
         this.isAttacking = false;
+        this.health = 100;
     }
 
     draw(){ // function in player class that displays it on screen
@@ -174,7 +175,8 @@ function animate(){
         rectangle2: enemy1
     }) && player1.isAttacking){
         player1.isAttacking = false;
-        console.log("hit")
+        enemy1.health = enemy1.health -20;
+        document.querySelector('#enemyHealth').style.width = enemy1.health + '%'
     }
 
     if(rectangularCollision({
@@ -182,7 +184,8 @@ function animate(){
         rectangle2: player1
     })&& enemy1.isAttacking) {
         enemy1.isAttacking = false;
-        console.log("enemy")
+        player1.health = player1.health -20;
+        document.querySelector('#playerHealth').style.width = player1.health + '%'
     }
     
 }
