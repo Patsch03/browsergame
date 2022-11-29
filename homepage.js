@@ -33,6 +33,7 @@ class player {
         this.isAttacking = false;
         this.health = 100;
         this.blocking = false;
+        this.blockTimer = 0;
     }
 
     draw(){ // function in player class that displays it on screen
@@ -46,7 +47,6 @@ class player {
         }
 
         if(this.blocking){
-            console.log("blocking")
             c.fillStyle = 'purple';
             c.fillRect(this.position.x, this.position.y, this.width, this.height);
         }
@@ -155,13 +155,6 @@ function animate(){
     player1.update(); // calls update function which currently changes their position based on velocity 
     enemy1.update(); // ^^
 
-
-
- 
-
-
-
-
     player1.velocity.x = 0; // sets player velocity at 0 constantly unless key is being pushed
     if(keys.a.pressed && player1.lastKey === 'a'){ // if key a is pressed and the last key that was pressed
         player1.velocity.x = -1; // moves left
@@ -190,14 +183,18 @@ function animate(){
         document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
     }
 
-    if(rectangularCollision({
-        rectangle1: enemy1,
-        rectangle2: player1
-    }) && enemy1.isAttacking && player1.blocking == false) {
-        enemy1.isAttacking = false;
-        player1.health = player1.health -20;
-        document.querySelector('#playerHealth').style.width = player1.health + '%';
+
+    if(player1.blocking == false){
+        if(rectangularCollision({
+            rectangle1: enemy1,
+            rectangle2: player1
+        }) && enemy1.isAttacking) {
+            enemy1.isAttacking = false;
+            player1.health = player1.health -20;
+            document.querySelector('#playerHealth').style.width = player1.health + '%';
+        }
     }
+
     
 }
 
