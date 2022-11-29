@@ -32,6 +32,7 @@ class player {
         this.color = color
         this.isAttacking = false;
         this.health = 100;
+        this.blocking = false;
     }
 
     draw(){ // function in player class that displays it on screen
@@ -40,8 +41,14 @@ class player {
 
         // attack box drawing 
         if(this.isAttacking){ // draws when player is attacking
-            c.fillStyle = "blue"
+            c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
+        }
+
+        if(this.blocking){
+            console.log("blocking")
+            c.fillStyle = 'purple';
+            c.fillRect(this.position.x, this.position.y, this.width, this.height);
         }
 
     }
@@ -150,6 +157,10 @@ function animate(){
 
 
 
+ 
+
+
+
 
     player1.velocity.x = 0; // sets player velocity at 0 constantly unless key is being pushed
     if(keys.a.pressed && player1.lastKey === 'a'){ // if key a is pressed and the last key that was pressed
@@ -173,19 +184,19 @@ function animate(){
     if(rectangularCollision({
         rectangle1: player1,
         rectangle2: enemy1
-    }) && player1.isAttacking){
+    }) && player1.isAttacking && enemy1.blocking == false){
         player1.isAttacking = false;
         enemy1.health = enemy1.health -20;
-        document.querySelector('#enemyHealth').style.width = enemy1.health + '%'
+        document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
     }
 
     if(rectangularCollision({
         rectangle1: enemy1,
         rectangle2: player1
-    })&& enemy1.isAttacking) {
+    }) && enemy1.isAttacking && player1.blocking == false) {
         enemy1.isAttacking = false;
         player1.health = player1.health -20;
-        document.querySelector('#playerHealth').style.width = player1.health + '%'
+        document.querySelector('#playerHealth').style.width = player1.health + '%';
     }
     
 }
@@ -219,6 +230,12 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
             break;
         case 'j':
             enemy1.attack();
+            break;
+        case 'v':
+            enemy1.blocking = true;
+            break;
+        case 'b':
+            player1.blocking = true;
             break;
 
         case 'ArrowRight':
@@ -254,10 +271,14 @@ window.addEventListener("keyup", (event) => {
         case 'ArrowRight':
             keys.ArrowRight.pressed = false;
             break;
-
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = false;
             break;
+        case 'b':
+            player1.blocking = false;
+            break;
+        case 'v':
+            enemy1.blocking = false;
     
     }
 
