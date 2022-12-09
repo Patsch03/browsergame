@@ -1,5 +1,7 @@
 var canvas = document.querySelector('canvas'); // grabs the canvas object so you can manipulate it 
 const c = canvas.getContext('2d') // research
+let time = 60;
+document.querySelector('#timer').innerHTML = time;
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -148,12 +150,29 @@ function rectangularCollision({rectangle1, rectangle2}){
         )
 }
 
+
+function runTimer(num){
+    setTimeout(() =>{
+        time = document.querySelector('#timer').innerHTML = num - 1;
+    }, 1000);
+}
+
+function displayEnd(){
+    console.log("Game over, time expired");
+}
+
 function animate(){
     window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
     player1.update(); // calls update function which currently changes their position based on velocity 
     enemy1.update(); // ^^
+    if(time <= 0){
+        displayEnd();
+    }else{
+        runTimer(time);
+    }
+
 
     player1.velocity.x = 0; // sets player velocity at 0 constantly unless key is being pushed
     if(keys.a.pressed && player1.lastKey === 'a'){ // if key a is pressed and the last key that was pressed
@@ -194,8 +213,6 @@ function animate(){
             document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
-
-    
 }
 
 
