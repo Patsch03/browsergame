@@ -1,6 +1,6 @@
 var canvas = document.querySelector('canvas'); // grabs the canvas object so you can manipulate it 
 const c = canvas.getContext('2d') // research
-let time = 60;
+let time = 5;
 document.querySelector('#timer').innerHTML = time;
 
 canvas.width = 1000;
@@ -151,13 +151,13 @@ function rectangularCollision({rectangle1, rectangle2}){
 }
 
 
-function runTimer(num){
+function runTimer(num){ // timer tick down
     setTimeout(() =>{
         time = document.querySelector('#timer').innerHTML = num - 1;
     }, 1000);
 }
 
-function displayEnd(){
+function displayEnd(){ // shows game over messages
     document.querySelector('#game_over_message').style.opacity = 100;
     document.querySelector('#game_over').style.opacity = 100;
     document.querySelector('#game_over_message_winner').style.opacity = 100;
@@ -165,7 +165,7 @@ function displayEnd(){
 
 }
 
-function checkWin(){
+function checkWin(){ // sees if anyone wins and sets the winning message based on who wins
     if(player1.health <= 0 && enemy1.health > 0){
         document.querySelector('#game_over_message_winner').innerHTML = "Enemy Wins";
         return true;
@@ -176,9 +176,14 @@ function checkWin(){
 }
 
 function animate(){
+
+
     if(checkWin() || time <= 0){ // if game is won, console log game is over and stops the animation loop
+        if(time == 0){
+            document.querySelector('#game_over_message_winner').innerHTML = "Time ran out no winner!";
+        }
         console.log("Game is over");
-        displayEnd();
+        displayEnd(); // shows game over message
     }else{
         runTimer(time);
         window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
