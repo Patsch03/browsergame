@@ -161,8 +161,25 @@ function displayEnd(){
     console.log("Game over, time expired");
 }
 
+function checkWin(){
+    if(player1.health <= 0 && enemy1.health > 0){
+        console.log("Enemy Wins");
+        return true;
+        // gamestop
+    }else if(enemy1.health <= 0 && player1.health > 0){
+        console.log("Player Wins");
+        return true;
+        // gamestop
+    }
+}
+
 function animate(){
-    window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
+    if(checkWin()){
+        console.log("game is over");
+    }else{
+        window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
+    }
+    
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
     player1.update(); // calls update function which currently changes their position based on velocity 
@@ -171,6 +188,10 @@ function animate(){
         displayEnd();
     }else{
         runTimer(time);
+    }
+
+    if(checkWin()){
+
     }
 
 
