@@ -19,11 +19,38 @@
         *{
             box-sizing: border-box;
         }
+        #game_over{
+            width: 200px;
+            height: 50px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            
+            margin-top: -100px;
+            margin-left: -100px;
+        }
+        #game_over_winner{
+            width: 200px;
+            height: 50px;
+            position: absolute;
+            left: 50%;
+            top: 65%;
+            
+            margin-top: -100px;
+            margin-left: -100px;
+        }
     </style>
 
 </head>
 <body>
+
     <div style="position: relative; display:inline-block;">
+        <div id ="game_over" style="background-color: red; opacity: 0;">
+            <p id ="game_over_message" style="color:black; text-align: center; opacity: 0;">GAME OVER</p>
+        </div>
+        <div id ="game_over_winner" style="background-color: blue; opacity: 0;">
+            <p id ="game_over_message_winner" style="color:black; text-align: center; opacity: 0;"></p>
+        </div>
         <div style="position: absolute; display: flex; width: 100%; align-items: center; padding: 20px;">
             <!-- player health -->
             <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end;">

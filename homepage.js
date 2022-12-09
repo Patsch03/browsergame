@@ -158,42 +158,36 @@ function runTimer(num){
 }
 
 function displayEnd(){
-    console.log("Game over, time expired");
+    document.querySelector('#game_over_message').style.opacity = 100;
+    document.querySelector('#game_over').style.opacity = 100;
+    document.querySelector('#game_over_message_winner').style.opacity = 100;
+    document.querySelector('#game_over_winner').style.opacity = 100;
+
 }
 
 function checkWin(){
     if(player1.health <= 0 && enemy1.health > 0){
-        console.log("Enemy Wins");
+        document.querySelector('#game_over_message_winner').innerHTML = "Enemy Wins";
         return true;
-        // gamestop
     }else if(enemy1.health <= 0 && player1.health > 0){
-        console.log("Player Wins");
+        document.querySelector('#game_over_message_winner').innerHTML = "Player Wins";
         return true;
-        // gamestop
     }
 }
 
 function animate(){
-    if(checkWin()){
-        console.log("game is over");
+    if(checkWin() || time <= 0){ // if game is won, console log game is over and stops the animation loop
+        console.log("Game is over");
+        displayEnd();
     }else{
+        runTimer(time);
         window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
     }
-    
+
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
     player1.update(); // calls update function which currently changes their position based on velocity 
     enemy1.update(); // ^^
-    if(time <= 0){
-        displayEnd();
-    }else{
-        runTimer(time);
-    }
-
-    if(checkWin()){
-
-    }
-
 
     player1.velocity.x = 0; // sets player velocity at 0 constantly unless key is being pushed
     if(keys.a.pressed && player1.lastKey === 'a'){ // if key a is pressed and the last key that was pressed
@@ -201,7 +195,6 @@ function animate(){
     }else if(keys.d.pressed && player1.lastKey === 'd'){ // if key d is pressed and the last key that was pressed
         player1.velocity.x = 1; // moves right 
     }
-
 
     // same logic as above for other entity 
     enemy1.velocity.x = 0
