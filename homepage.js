@@ -23,7 +23,7 @@ class player {
         this.height = 150 
         this.facing = "left";
         this.lastKey; // last key pressed in relation to the entity being referenced
-        this.attackBox ={ // attack 
+        this.attackBox = { // attack 
             position: {
                 x: this.position.x, 
                 y: this.position.y,
@@ -45,7 +45,10 @@ class player {
         c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
 
         // attack box drawing 
-        if(this.isAttacking){ // draws when player is attacking
+        if(this.isAttacking && this.facing == "left"){ // draws when player is attacking
+            c.fillStyle = "blue";
+            c.fillRect(this.attackBox.position.x, this.attackBox.position.y, (this.attackBox.width - (this.attackBox.width + this.attackBox.width) + this.width), this.attackBox.height);
+        }else if(this.isAttacking && this.facing == "right"){
             c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
         }
@@ -110,7 +113,7 @@ const enemy1 = new player({ // creating player
         y: 0,
     },
     offset: { // where attackbox spawns based on offset
-        x: -50,
+        x: 0,
         y: 0,
     },
     color: 'green'
@@ -178,8 +181,7 @@ function checkWin(){ // sees if anyone wins and sets the winning message based o
 }
 
 function animate(){
-
-
+    console.log(player1.facing);
     if(checkWin() || time <= 0){ // if game is won, console log game is over and stops the animation loop
         if(time == 0){
             document.querySelector('#game_over_message_winner').innerHTML = "Time ran out no winner!"; // sets game winning message to draw, out of time
@@ -246,11 +248,13 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
         case 'd':
             keys.d.pressed = true; // sets the pressed value to true (doesnt change until key is let go )
             player1.lastKey = 'd';
+            player1.facing = "right";
             break;
 
         case 'a':
             keys.a.pressed = true;
             player1.lastKey = 'a'; // sets the lastKey property equal to the last key pressed
+            player1.facing = "left";
             break;
 
         case 'w':
@@ -275,11 +279,13 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
         case 'ArrowRight':
             keys.ArrowRight.pressed = true;
             enemy1.lastKey = 'ArrowRight';
+            enemy1.facing = "right"
             break;
 
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true;
             enemy1.lastKey = 'ArrowLeft';
+            enemy1.facing = "left";
             break;
 
         case 'ArrowUp':
