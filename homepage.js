@@ -21,7 +21,7 @@ class player {
         this.velocity = velocity; // speed that player moves in any given directon
         this.width = 50
         this.height = 150 
-        this.facing = "left";
+        this.facing = " ";
         this.lastKey; // last key pressed in relation to the entity being referenced
         this.attackBox = { // attack 
             position: {
@@ -79,7 +79,7 @@ class player {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 250)
+        }, 200)
     }
 
     
@@ -146,14 +146,21 @@ const keys = {
 
 }
 
-function facingRightDetection(){
-    
+
+function leftRectangularCollision({rectangle1, rectangle2}){
+    return(
+        rectangle1.attackBox.position.x - 50 <= rectangle2.position.x + rectangle2.width && rectangle1.attackBox.position.x > rectangle2.position.x
+        && rectangle1.attackBox.position.x + rectangle1.width
+        && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+        && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.isAttacking
+    )
 }
 
 
-function rectangularCollision({rectangle1, rectangle2}){
+function rightRectangularCollision({rectangle1, rectangle2}){
     return(
-        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width
+        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width 
         && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
         && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
@@ -200,7 +207,6 @@ function checkWin(){ // sees if anyone wins and sets the winning message based o
 }
 
 function animate(){
-    console.log(player1.facing);
     if(checkWin() || time <= 0){ // if game is won, console log game is over and stops the animation loop
         if(time == 0){
             document.querySelector('#game_over_message_winner').innerHTML = "Time ran out no winner!"; // sets game winning message to draw, out of time
@@ -234,21 +240,44 @@ function animate(){
 
     //collision detection 
 
-    if(rectangularCollision({
-        rectangle1: player1,
-        rectangle2: enemy1
-    }) && player1.isAttacking && enemy1.blocking == false){
-        player1.isAttacking = false;
-        enemy1.health = enemy1.health -20;
-        document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
+    if(player1.facing == "left"){
+        if(leftRectangularCollision({
+            rectangle1: player1,
+            rectangle2: enemy1
+        }) && player1.isAttacking && enemy1.blocking == false){
+            player1.isAttacking = false;
+            enemy1.health = enemy1.health -20;
+            document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
+        }
     }
 
+    if(player1.facing == "right"){
+        if(rightRectangularCollision({
+            rectangle1: player1,
+            rectangle2: enemy1
+        }) && player1.isAttacking && enemy1.blocking == false){
+            player1.isAttacking = false;
+            enemy1.health = enemy1.health -20;
+            document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
+        }
+    }
 
-    if(player1.blocking == false){
-        if(rectangularCollision({
+    if(enemy1.facing == "left"){
+        if(leftRectangularCollision({
             rectangle1: enemy1,
             rectangle2: player1
-        }) && enemy1.isAttacking) {
+        }) && enemy1.isAttacking && player1.blocking == false){
+            enemy1.isAttacking = false;
+            player1.health = player1.health -20;
+            document.querySelector('#playerHealth').style.width = player1.health + '%';
+        }
+    }
+    
+    if(enemy1.facing == "right"){
+        if(rightRectangularCollision({
+            rectangle1: enemy1,
+            rectangle2: player1
+        }) && enemy1.isAttacking && player1.blocking == false){
             enemy1.isAttacking = false;
             player1.health = player1.health -20;
             document.querySelector('#playerHealth').style.width = player1.health + '%';
