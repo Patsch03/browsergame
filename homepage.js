@@ -1,6 +1,6 @@
 var canvas = document.querySelector('canvas'); // grabs the canvas object so you can manipulate it 
 const c = canvas.getContext('2d') // research
-let time = 5;
+let time = 60;
 document.querySelector('#timer').innerHTML = time;
 
 canvas.width = 1000;
@@ -21,6 +21,7 @@ class player {
         this.velocity = velocity; // speed that player moves in any given directon
         this.width = 50
         this.height = 150 
+        this.facing = "left";
         this.lastKey; // last key pressed in relation to the entity being referenced
         this.attackBox ={ // attack 
             position: {
@@ -36,6 +37,7 @@ class player {
         this.health = 100;
         this.blocking = false;
         this.blockTimer = 0;
+
     }
 
     draw(){ // function in player class that displays it on screen
@@ -74,7 +76,7 @@ class player {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 100)
+        }, 250)
     }
 
     
@@ -180,9 +182,8 @@ function animate(){
 
     if(checkWin() || time <= 0){ // if game is won, console log game is over and stops the animation loop
         if(time == 0){
-            document.querySelector('#game_over_message_winner').innerHTML = "Time ran out no winner!";
+            document.querySelector('#game_over_message_winner').innerHTML = "Time ran out no winner!"; // sets game winning message to draw, out of time
         }
-        console.log("Game is over");
         displayEnd(); // shows game over message
     }else{
         runTimer(time);
