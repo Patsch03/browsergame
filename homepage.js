@@ -146,13 +146,32 @@ const keys = {
 
 }
 
+function facingRightDetection(){
+    
+}
+
+
 function rectangularCollision({rectangle1, rectangle2}){
     return(
         rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width
         && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
         && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
-        )
+    )
+
+    /*
+        left hit detection
+        left side of attack box is < right side of player model AND right side of attack box is > left side of other player model
+        top of attack box < other player model height AND bottom of attack box is > whwer player model is drawn
+    */
+
+    
+    /* 
+        right hit detection
+        right side of attack box is > left side of other player model AND left side of attack box is < right side of other player model 
+        top of attack box < other player model height AND bottom of attack box is > whwer player model is drawn
+    */
+    
 }
 
 
