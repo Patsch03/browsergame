@@ -9,6 +9,7 @@ canvas.height = 700;
 c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
 
+
 const gravity = .2; // gravity constant applied to velocity of players
 // const airRes = 1
 
@@ -371,5 +372,15 @@ window.addEventListener("keyup", (event) => {
     }
 
 })
+
+function reset(){
+    time = 60;
+    player1.health = 100;
+    enemy1.health = 100;    
+    document.querySelector('#playerHealth').style.width = 100;
+    document.querySelector('#enemyHealth').style.width = 100 + '%';
+    console.log("reset")
+}
+
 
 animate(); // runs infinite loop to animate screen
