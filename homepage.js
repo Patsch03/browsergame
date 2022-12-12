@@ -375,10 +375,34 @@ window.addEventListener("keyup", (event) => {
 
 function reset(){
     time = 60;
+    document.querySelector('#timer').innerHTML = 60;
     player1.health = 100;
     enemy1.health = 100;    
-    document.querySelector('#playerHealth').style.width = 100;
+
+
+    document.querySelector('#playerHealth').style.width = 100 + "%";
     document.querySelector('#enemyHealth').style.width = 100 + '%';
+    document.querySelector('#game_over').style.opacity = 0;
+    document.querySelector('#game_over_message_winner').style.opacity = 0;
+    document.querySelector('#game_over_winner').style.opacity = 0;
+    if(document.querySelector('#game_over_message').style.opacity == 100){
+        document.querySelector('#game_over_message').style.opacity = 0;
+        animate();
+    }
+    
+
+
+
+    enemy1.position.x = 700;
+    enemy1.position.y = 250;
+    enemy1.velocity.x = 0;
+    enemy1.velocity.y = 0;
+
+    player1.position.x = 250;
+    player1.position.y = 250;
+    player1.velocity.x = 0;
+    player1.velocity.y = 0;
+
     console.log("reset")
 }
 
