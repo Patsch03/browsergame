@@ -1,7 +1,8 @@
 var canvas = document.querySelector('canvas'); // grabs the canvas object so you can manipulate it 
 const c = canvas.getContext('2d') // research
-let time = 60;
-document.querySelector('#timer').innerHTML = time;
+let time = 6000;
+document.querySelector('#timer').innerHTML = Math.floor(time / 100);
+let timesRan = 0;
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -184,9 +185,11 @@ function rightRectangularCollision({rectangle1, rectangle2}){
 
 
 function runTimer(num){ // timer tick down
-    setTimeout(() =>{
-        time = document.querySelector('#timer').innerHTML = num - 1;
-    }, 1000);
+    // setTimeout(() =>{
+        time = num - 1;
+        console.log(time);
+        document.querySelector('#timer').innerHTML = Math.floor(time / 100);
+    // }, 1000);
 }
 
 function displayEnd(){ // shows game over messages
@@ -374,11 +377,10 @@ window.addEventListener("keyup", (event) => {
 })
 
 function reset(){
-    time = 60;
-    document.querySelector('#timer').innerHTML = 60;
+    time = 6000;
+    document.querySelector('#timer').innerHTML = Math.floor(time / 100);
     player1.health = 100;
     enemy1.health = 100;    
-
 
     document.querySelector('#playerHealth').style.width = 100 + "%";
     document.querySelector('#enemyHealth').style.width = 100 + '%';
@@ -390,9 +392,6 @@ function reset(){
         animate();
     }
     
-
-
-
     enemy1.position.x = 700;
     enemy1.position.y = 250;
     enemy1.velocity.x = 0;
