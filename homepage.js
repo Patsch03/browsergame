@@ -18,12 +18,12 @@ const gravity = .2; // gravity constant applied to velocity of players
 
 //player object 
 class player {
-    constructor({position, velocity, color, offset}){
+    constructor({position, velocity, color, offset, facing}){
         this.position = position
         this.velocity = velocity; // speed that player moves in any given directon
         this.width = 50
         this.height = 150 
-        this.facing = " ";
+        this.facing = facing;
         this.lastKey; // last key pressed in relation to the entity being referenced
         this.attackBox = { // attack 
             position: {
@@ -100,7 +100,8 @@ const player1 = new player({ // creating new player
         x: 0,
         y: 0,
     },
-    color: "red"
+    color: "red",
+    facing: "right",
 })
 
 player1.draw() // displays the player created above
@@ -118,7 +119,8 @@ const enemy1 = new player({ // creating player
         x: 0,
         y: 0,
     },
-    color: 'green'
+    color: 'green',
+    facing: "left",
 })
 
 enemy1.draw() // displays player above
