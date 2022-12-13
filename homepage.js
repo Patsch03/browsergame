@@ -25,7 +25,7 @@ class player {
         this.height = 150 
         this.facing = facing;
         this.lastKey; // last key pressed in relation to the entity being referenced
-        this.attackBox = { // attack 
+        this.attackBox = { // attack //
             position: {
                 x: this.position.x, 
                 y: this.position.y,
