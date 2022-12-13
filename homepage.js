@@ -277,7 +277,11 @@ function animate(){
             rectangle2: enemy1
         }) && player1.isAttacking && enemy1.blocking == false){
             player1.isAttacking = false;
-            enemy1.health = enemy1.health -20;
+            if(player1.attackType == "kick"){
+                enemy1.health = enemy1.health -50;
+            }else{
+                enemy1.health = enemy1.health -10;
+            }
             document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
         }
     }
@@ -288,7 +292,12 @@ function animate(){
             rectangle2: enemy1
         }) && player1.isAttacking && enemy1.blocking == false){
             player1.isAttacking = false;
-            enemy1.health = enemy1.health -20;
+            if(player1.attackType == "kick"){
+                enemy1.health = enemy1.health -50;
+            }else{
+                enemy1.health = enemy1.health -10;
+            }
+            
             document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
         }
     }
@@ -299,7 +308,11 @@ function animate(){
             rectangle2: player1
         }) && enemy1.isAttacking && player1.blocking == false){
             enemy1.isAttacking = false;
-            player1.health = player1.health -20;
+            if(enemy1.attackType){
+                player1.health = player1.health -50;
+            }else{
+                player1.health = player1.health -10;
+            }
             document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
@@ -310,7 +323,11 @@ function animate(){
             rectangle2: player1
         }) && enemy1.isAttacking && player1.blocking == false){
             enemy1.isAttacking = false;
-            player1.health = player1.health -20;
+            if(enemy1.attackType){
+                player1.health = player1.health -50;
+            }else{
+                player1.health = player1.health -10;
+            }
             document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
@@ -364,7 +381,7 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
         case 'v':
             enemy1.blocking = true;
             break;
-            
+
         case 'b':
             player1.blocking = true;
             break;
