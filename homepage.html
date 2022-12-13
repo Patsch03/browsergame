@@ -35,15 +35,42 @@
             position: absolute;
             left: 50%;
             top: 65%;
-            
             margin-top: -100px;
             margin-left: -100px;
+        }
+
+        #button{
+            position: relative;
+            display: block;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            margin: auto;
+            background-color: orange;
+            border: none;
+            font-size: 28px;
+            color: black;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        #button:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 0.7;
+            transition: 0s
+        }
+
+        #button:hover{
+            opacity: 1;
         }
     </style>
 
 </head>
 <body>
-    <button onclick="reset()">Reset</button>
     <div style="position: relative; display:inline-block;">
         <div id ="game_over" style="background-color: red; opacity: 0;">
             <p id ="game_over_message" style="color:black; text-align: center; opacity: 0;">GAME OVER</p>
@@ -71,6 +98,8 @@
             
         </div>
         <canvas></canvas>
+        <button id ="button" onclick="reset()">Reset</button>
+
     </div>
     <script src="homepage.js"></script>
 </body>
