@@ -39,7 +39,6 @@ class player {
         this.health = 100;
         this.blocking = false;
         this.blockTimer = 0;
-        this.isKicking = false;
         this.kickBox = {
             position: {
                 x: this.position.x, 
@@ -57,27 +56,25 @@ class player {
         c.fillStyle = this.color // color of player
         c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
 
-        // attack box drawing 
-        // if(this.isKicking && this.facing == "right"){
-        //     c.fillStyle = "white";
-        //     c.fillRect(this.kickBox.position.x, this.kickBox.position.y, this.kickBox.width, this.kickBox.height);
-        // }else if(this.isKicking && this.facing == "left"){
-        //     c.fillStyle = "white";
-        //     c.fillRect(this.kickBox.position.x, this.kickBox.position.y, (this.kickBox.width - (this.kickBox.width + this.kickBox.width) + this.width), this.kickBox.height);
-        // }
         if(this.isAttacking && this.facing == "right" && this.attackType == "kick"){
             c.fillStyle = "white";
             c.fillRect(this.kickBox.position.x, this.kickBox.position.y, this.kickBox.width, this.kickBox.height);
+            console.log(this.color +  "right kick");
         }else if(this.isAttacking && this.facing == "left" && this.attackType == "kick"){
             c.fillStyle = "white";
             c.fillRect(this.kickBox.position.x, this.kickBox.position.y, (this.kickBox.width - (this.kickBox.width + this.kickBox.width) + this.width), this.kickBox.height);
+            console.log(this.color +  "left kick");
+
         }
         if(this.isAttacking && this.facing == "left" && this.attackType == "punch"){ // draws when player is attacking
             c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, (this.attackBox.width - (this.attackBox.width + this.attackBox.width) + this.width), this.attackBox.height);
+            console.log(this.color +  "left punch");
         }else if(this.isAttacking && this.facing == "right" && this.attackType == "punch"){
             c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
+            console.log(this.color + "right punch");
+
         }
 
         if(this.blocking){
@@ -109,18 +106,10 @@ class player {
     }
 
     attack(){ // attack function that sets attack to true for a duration
-        if(this.attackType == "punch"){
-            this.isAttacking = true;
-            setTimeout(() => {
-                this.isAttacking = false;
-            }, 200)
-        }else if(this.attackType == "kick"){
-            this.isAttacking = true;
-            setTimeout(() => {
-                this.isAttacking = false;
-            }, 200)
-        }
-
+        this.isAttacking = true;
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 200)
     }
 }
 
@@ -226,7 +215,6 @@ function rightRectangularCollision({rectangle1, rectangle2}){
 function runTimer(num){ // timer tick down
     // setTimeout(() =>{
         time = num - 1;
-        console.log(time);
         document.querySelector('#timer').innerHTML = Math.floor(time / 100);
     // }, 1000);
 }
@@ -355,19 +343,28 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
             break;
         
         case ' ':
+            player1.attackType = "punch";
             player1.attack();
             break;
+        case "z":
+            player1.attackType = "kick";
+            player1.attack();
+            break;
+
         case 'j':
             enemy1.attackType = "punch";
             enemy1.attack();
             break;
+
         case 'k':
             enemy1.attackType = "kick";
             enemy1.attack();
             break;
+
         case 'v':
             enemy1.blocking = true;
             break;
+            
         case 'b':
             player1.blocking = true;
             break;
