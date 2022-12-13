@@ -58,17 +58,24 @@ class player {
         c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
 
         // attack box drawing 
-        if(this.isKicking && this.facing == "right"){
+        // if(this.isKicking && this.facing == "right"){
+        //     c.fillStyle = "white";
+        //     c.fillRect(this.kickBox.position.x, this.kickBox.position.y, this.kickBox.width, this.kickBox.height);
+        // }else if(this.isKicking && this.facing == "left"){
+        //     c.fillStyle = "white";
+        //     c.fillRect(this.kickBox.position.x, this.kickBox.position.y, (this.kickBox.width - (this.kickBox.width + this.kickBox.width) + this.width), this.kickBox.height);
+        // }
+        if(this.isAttacking && this.facing == "right" && this.attackType == "kick"){
             c.fillStyle = "white";
             c.fillRect(this.kickBox.position.x, this.kickBox.position.y, this.kickBox.width, this.kickBox.height);
-        }else if(this.isKicking && this.facing == "left"){
+        }else if(this.isAttacking && this.facing == "left" && this.attackType == "kick"){
             c.fillStyle = "white";
             c.fillRect(this.kickBox.position.x, this.kickBox.position.y, (this.kickBox.width - (this.kickBox.width + this.kickBox.width) + this.width), this.kickBox.height);
         }
-        if(this.isAttacking && this.facing == "left"){ // draws when player is attacking
+        if(this.isAttacking && this.facing == "left" && this.attackType == "punch"){ // draws when player is attacking
             c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, (this.attackBox.width - (this.attackBox.width + this.attackBox.width) + this.width), this.attackBox.height);
-        }else if(this.isAttacking && this.facing == "right"){
+        }else if(this.isAttacking && this.facing == "right" && this.attackType == "punch"){
             c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
         }
@@ -108,9 +115,9 @@ class player {
                 this.isAttacking = false;
             }, 200)
         }else if(this.attackType == "kick"){
-            this.isKicking = true;
+            this.isAttacking = true;
             setTimeout(() => {
-                this.isKicking = false;
+                this.isAttacking = false;
             }, 200)
         }
 
