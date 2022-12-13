@@ -39,7 +39,18 @@ class player {
         this.health = 100;
         this.blocking = false;
         this.blockTimer = 0;
-
+        this.isKicking = false;
+        this.kickBox = {
+            position: {
+                x: this.position.x, 
+                y: this.position.y - this.height,
+            },
+            width: 100,
+            height: -50,
+            offset,
+        }
+        this.attackType = "";
+        
     }
 
     draw(){ // function in player class that displays it on screen
@@ -47,6 +58,13 @@ class player {
         c.fillRect(this.position.x, this.position.y, this.width, this.height); // actual player model rectangle
 
         // attack box drawing 
+        if(this.isKicking && this.facing == "right"){
+            c.fillStyle = "white";
+            c.fillRect(this.kickBox.position.x, this.kickBox.position.y, this.kickBox.width, this.kickBox.height);
+        }else if(this.isKicking && this.facing == "left"){
+            c.fillStyle = "white";
+            c.fillRect(this.kickBox.position.x, this.kickBox.position.y, (this.kickBox.width - (this.kickBox.width + this.kickBox.width) + this.width), this.kickBox.height);
+        }
         if(this.isAttacking && this.facing == "left"){ // draws when player is attacking
             c.fillStyle = "blue";
             c.fillRect(this.attackBox.position.x, this.attackBox.position.y, (this.attackBox.width - (this.attackBox.width + this.attackBox.width) + this.width), this.attackBox.height);
@@ -66,8 +84,14 @@ class player {
         this.draw()
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x // sets position based on player model
         this.attackBox.position.y = this.position.y
+        this.kickBox.position.x = this.position.x;
+        this.kickBox.position.y = this.position.y + this.height;
+
         this.position.y += this.velocity.y; // changing the y position based on velocity
         this.position.x += this.velocity.x;
+
+
+
         
         if(this.position.y + this.height  + this.velocity.y > canvas.height){ // checks to see if player is hitting edge of screen
             this.velocity.y = this.velocity.y * 0 ; // stops player from moving
@@ -78,13 +102,19 @@ class player {
     }
 
     attack(){ // attack function that sets attack to true for a duration
-        this.isAttacking = true;
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 200)
-    }
+        if(this.attackType == "punch"){
+            this.isAttacking = true;
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 200)
+        }else if(this.attackType == "kick"){
+            this.isKicking = true;
+            setTimeout(() => {
+                this.isKicking = false;
+            }, 200)
+        }
 
-    
+    }
 }
 
 const player1 = new player({ // creating new player
@@ -321,6 +351,11 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
             player1.attack();
             break;
         case 'j':
+            enemy1.attackType = "punch";
+            enemy1.attack();
+            break;
+        case 'k':
+            enemy1.attackType = "kick";
             enemy1.attack();
             break;
         case 'v':
