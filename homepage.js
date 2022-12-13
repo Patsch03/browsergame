@@ -220,6 +220,14 @@ function runTimer(num){ // timer tick down
 }
 
 function displayEnd(){ // shows game over messages
+    if(player1.health < 0){
+        document.querySelector("#playerHealth").style.width = 0;
+        console.log("this ran");
+    }else if(enemy1.health < 0){
+        document.querySelector("#enemyHealth").style.width = 0;
+        console.log("this ran");
+    }
+
     document.querySelector('#game_over_message').style.opacity = 100;
     document.querySelector('#game_over').style.opacity = 100;
     document.querySelector('#game_over_message_winner').style.opacity = 100;
@@ -308,7 +316,7 @@ function animate(){
             rectangle2: player1
         }) && enemy1.isAttacking && player1.blocking == false){
             enemy1.isAttacking = false;
-            if(enemy1.attackType){
+            if(enemy1.attackType == "kick"){
                 player1.health = player1.health -50;
             }else{
                 player1.health = player1.health -10;
