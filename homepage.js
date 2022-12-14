@@ -226,7 +226,7 @@ function leftRectangularCollisionKick({rectangle1, rectangle2}){
     return(
         rectangle1.kickBox.position.x - 50 <= rectangle2.position.x + rectangle2.width && rectangle1.kickBox.position.x > rectangle2.position.x
         && rectangle1.kickBox.position.x + rectangle1.width
-        && (rectangle1.kickBox.position.y + rectangle1.height) + rectangle1.kickBox.height >= rectangle2.position.y
+        && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
         && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
@@ -308,7 +308,7 @@ function animate(){
     }) && player1.isAttacking && enemy1.blocking == false){
         if(player1.attackType == "kick"){
             player1.isAttacking = false;
-            enemy1.health = enemy1.health -50;
+            enemy1.health = enemy1.health -5;
             document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
         }
     }
@@ -319,7 +319,7 @@ function animate(){
     }) && player1.isAttacking && enemy1.blocking == false){
         if(player1.attackType == "kick"){
             player1.isAttacking = false;
-            enemy1.health = enemy1.health -50;
+            enemy1.health = enemy1.health -5;
             document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
         }
     }
@@ -330,7 +330,7 @@ function animate(){
     }) && enemy1.isAttacking && enemy1.blocking == false){
         if(enemy1.attackType == "kick"){
             enemy1.isAttacking = false;
-            player1.health = player1.health -50;
+            player1.health = player1.health -5;
             document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
@@ -341,7 +341,7 @@ function animate(){
     }) && enemy1.isAttacking && enemy1.blocking == false){
         if(enemy1.attackType == "kick"){
             enemy1.isAttacking = false;
-            player1.health = player1.health -50;
+            player1.health = player1.health -5;
             document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
