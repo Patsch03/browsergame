@@ -12,7 +12,6 @@ c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
 
 const gravity = .2; // gravity constant applied to velocity of players
-// const airRes = 1
 
 
 
