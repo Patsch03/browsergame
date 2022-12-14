@@ -212,6 +212,27 @@ function rightRectangularCollision({rectangle1, rectangle2}){
 }
 
 
+function rightRectangularCollisionKick({rectangle1, rectangle2}){
+    return(
+        rectangle1.kickBox.position.x + rectangle1.kickBox.width >= rectangle2.position.x && rectangle1.kickBox.position.x <= rectangle2.position.x + rectangle2.width 
+        && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
+        && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.isAttacking
+    )
+
+}
+
+function leftRectangularCollisionKick({rectangle1, rectangle2}){
+    return(
+        rectangle1.kickBox.position.x - 50 <= rectangle2.position.x + rectangle2.width && rectangle1.kickBox.position.x > rectangle2.position.x
+        && rectangle1.kickBox.position.x + rectangle1.width
+        && (rectangle1.kickBox.position.y + rectangle1.height) + rectangle1.kickBox.height >= rectangle2.position.y
+        && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.isAttacking
+    )
+
+}
+
 function runTimer(num){ // timer tick down
     // setTimeout(() =>{
         time = num - 1;
@@ -279,18 +300,63 @@ function animate(){
 
     //collision detection 
 
+
+
+    if(rightRectangularCollisionKick({
+        rectangle1: player1,
+        rectangle2: enemy1
+    }) && player1.isAttacking && enemy1.blocking == false){
+        if(player1.attackType == "kick"){
+            player1.isAttacking = false;
+            enemy1.health = enemy1.health -50;
+            document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
+        }
+    }
+
+    if(leftRectangularCollisionKick({
+        rectangle1: player1,
+        rectangle2: enemy1
+    }) && player1.isAttacking && enemy1.blocking == false){
+        if(player1.attackType == "kick"){
+            player1.isAttacking = false;
+            enemy1.health = enemy1.health -50;
+            document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
+        }
+    }
+
+    if(rightRectangularCollisionKick({
+        rectangle1: enemy1,
+        rectangle2: player1
+    }) && enemy1.isAttacking && enemy1.blocking == false){
+        if(enemy1.attackType == "kick"){
+            enemy1.isAttacking = false;
+            player1.health = player1.health -50;
+            document.querySelector('#playerHealth').style.width = player1.health + '%';
+        }
+    }
+
+    if(leftRectangularCollisionKick({
+        rectangle1: enemy1,
+        rectangle2: player1
+    }) && enemy1.isAttacking && enemy1.blocking == false){
+        if(enemy1.attackType == "kick"){
+            enemy1.isAttacking = false;
+            player1.health = player1.health -50;
+            document.querySelector('#playerHealth').style.width = player1.health + '%';
+        }
+    }
+
     if(player1.facing == "left"){
         if(leftRectangularCollision({
             rectangle1: player1,
             rectangle2: enemy1
         }) && player1.isAttacking && enemy1.blocking == false){
-            player1.isAttacking = false;
-            if(player1.attackType == "kick"){
-                enemy1.health = enemy1.health -50;
-            }else{
+            if(player1.attackType == "punch"){
+                player1.isAttacking = false;
                 enemy1.health = enemy1.health -10;
+                document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
             }
-            document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
+
         }
     }
 
@@ -299,14 +365,11 @@ function animate(){
             rectangle1: player1,
             rectangle2: enemy1
         }) && player1.isAttacking && enemy1.blocking == false){
-            player1.isAttacking = false;
-            if(player1.attackType == "kick"){
-                enemy1.health = enemy1.health -50;
-            }else{
+            if(player1.attackType == "punch"){
+                player1.isAttacking = false;
                 enemy1.health = enemy1.health -10;
+                document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
             }
-            
-            document.querySelector('#enemyHealth').style.width = enemy1.health + '%';
         }
     }
 
@@ -315,13 +378,11 @@ function animate(){
             rectangle1: enemy1,
             rectangle2: player1
         }) && enemy1.isAttacking && player1.blocking == false){
-            enemy1.isAttacking = false;
-            if(enemy1.attackType == "kick"){
-                player1.health = player1.health -50;
-            }else{
+            if(player1.attackType == "punch"){
+                enemy1.isAttacking = false;
                 player1.health = player1.health -10;
+                document.querySelector('#playerHealth').style.width = player1.health + '%';
             }
-            document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
     
@@ -330,13 +391,11 @@ function animate(){
             rectangle1: enemy1,
             rectangle2: player1
         }) && enemy1.isAttacking && player1.blocking == false){
-            enemy1.isAttacking = false;
-            if(enemy1.attackType){
-                player1.health = player1.health -50;
-            }else{
+            if(player1.attackType == "punch"){
+                enemy1.isAttacking = false;
                 player1.health = player1.health -10;
+                document.querySelector('#playerHealth').style.width = player1.health + '%';
             }
-            document.querySelector('#playerHealth').style.width = player1.health + '%';
         }
     }
 }
