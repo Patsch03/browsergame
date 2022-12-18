@@ -208,7 +208,7 @@ function rightRectangularCollision({rectangle1, rectangle2}){
     
 }
 
-// done
+
 function rightRectangularCollisionKick({rectangle1, rectangle2}){
 
     rightSideOfKickBox = rectangle1.kickBox.position.x + rectangle1.kickBox.width
@@ -226,10 +226,8 @@ function rightRectangularCollisionKick({rectangle1, rectangle2}){
 }
 
 
-//
+
 function leftRectangularCollisionKick({rectangle1, rectangle2}){
-        
-    rightSideOfKickBox = rectangle1.kickBox.position.x + rectangle1.kickBox.width
     leftSideOfEnemy = rectangle2.position.x
     leftSideOfKickBox = rectangle1.kickBox.position.x - 50
     rightSideOfEnemy = rectangle2.position.x + rectangle2.width 
@@ -244,16 +242,10 @@ function leftRectangularCollisionKick({rectangle1, rectangle2}){
 }
 
 function leftRectangularCollision({rectangle1, rectangle2}){
-
-    
-    rightSideOfAttackBox = rectangle1.attackBox.position.x + rectangle1.attackBox.width
     leftSideOfEnemy = rectangle2.position.x
     leftSideOfAttackBox = rectangle1.attackBox.position.x - 50
     rightSideOfEnemy = rectangle2.position.x + rectangle2.width 
-    leftSideOfPlayer = rectangle1.position.x
     rightSideOfPlayer = rectangle1.position.x + rectangle1.width
-    
-    //implement 
         return(
             leftSideOfAttackBox <= rightSideOfEnemy && rightSideOfPlayer > leftSideOfEnemy
             && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
