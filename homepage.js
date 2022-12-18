@@ -176,21 +176,7 @@ const keys = {
 }
 
 
-function leftRectangularCollision({rectangle1, rectangle2}){
 
-    
-rightSideOfAttackBox = rectangle1.attackBox.position.x + rectangle1.attackBox.width
-leftSideOfEnemy = rectangle2.position.x
-leftSideOfAttackBox = rectangle1.attackBox.position.x
-rightSideOfEnemy = rectangle2.position.x + rectangle2.width 
-
-    return(
-        rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && rectangle1.attackBox.position.x > rectangle2.position.x
-        && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-        && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
-        && rectangle1.isAttacking
-    )
-}
 
 
 function rightRectangularCollision({rectangle1, rectangle2}){
@@ -257,6 +243,24 @@ function leftRectangularCollisionKick({rectangle1, rectangle2}){
 
 }
 
+function leftRectangularCollision({rectangle1, rectangle2}){
+
+    
+    rightSideOfAttackBox = rectangle1.attackBox.position.x + rectangle1.attackBox.width
+    leftSideOfEnemy = rectangle2.position.x
+    leftSideOfAttackBox = rectangle1.attackBox.position.x - 50
+    rightSideOfEnemy = rectangle2.position.x + rectangle2.width 
+    leftSideOfPlayer = rectangle1.position.x
+    rightSideOfPlayer = rectangle1.position.x + rectangle1.width
+    
+    //implement 
+        return(
+            leftSideOfAttackBox <= rightSideOfEnemy && rightSideOfPlayer > leftSideOfEnemy
+            // && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+            // && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+            // && rectangle1.isAttacking
+        )
+    }
 function runTimer(num){ // timer tick down
     // setTimeout(() =>{
         time = num - 1;
