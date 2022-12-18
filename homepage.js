@@ -1,6 +1,6 @@
 var canvas = document.querySelector('canvas'); // grabs the canvas object so you can manipulate it 
 const c = canvas.getContext('2d') // research
-let time = 6000;
+let time = 60000;
 document.querySelector('#timer').innerHTML = Math.floor(time / 100);
 let timesRan = 0;
 
@@ -329,6 +329,12 @@ function animate(){
 
     //collision detection 
 
+
+    console.log(enemy1.isAttacking)
+    console.log(rightRectangularCollisionKick({
+        rectangle1: enemy1,
+        rectangle2: player1
+    }))
 
     if(player1.facing == "right"){
         if(rightRectangularCollisionKick({
