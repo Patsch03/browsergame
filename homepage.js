@@ -256,9 +256,9 @@ function leftRectangularCollision({rectangle1, rectangle2}){
     //implement 
         return(
             leftSideOfAttackBox <= rightSideOfEnemy && rightSideOfPlayer > leftSideOfEnemy
-            // && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-            // && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
-            // && rectangle1.isAttacking
+            && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+            && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+            && rectangle1.isAttacking
         )
     }
 function runTimer(num){ // timer tick down
