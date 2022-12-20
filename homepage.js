@@ -9,7 +9,7 @@ canvas.height = 700;
 
 c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
-
+// problem jump hitbox
 
 const gravity = .2; // gravity constant applied to velocity of players
 
@@ -225,8 +225,6 @@ function rightRectangularCollisionKick({rectangle1, rectangle2}){
 
 }
 
-
-
 function leftRectangularCollisionKick({rectangle1, rectangle2}){
     leftSideOfEnemy = rectangle2.position.x
     leftSideOfKickBox = rectangle1.kickBox.position.x - 50
@@ -238,7 +236,6 @@ function leftRectangularCollisionKick({rectangle1, rectangle2}){
         && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
-
 }
 
 function leftRectangularCollision({rectangle1, rectangle2}){
@@ -298,7 +295,6 @@ function animate(){
         runTimer(time);
         window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
     }
-
 
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
@@ -489,7 +485,7 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
             if(enemy1.position.y < 551 && enemy1.position.y > 550){
                 enemy1.velocity.y = -10;
             }
-            break
+            break;
     }
 
 })
