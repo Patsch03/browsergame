@@ -316,6 +316,9 @@ function animate(){
         enemy1.velocity.x = 1;
     }
 
+    // console.log(player1.position.x);
+    console.log(player1.position.y);
+
 
     //collision detection 
     if(player1.facing == "right" && player1.isAttacking){
@@ -439,6 +442,8 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
         case 'w':
             if(player1.position.y < 551 && player1.position.y > 550){ // checks if player is on the ground (or really close to it)
                 player1.velocity.y = -10;
+            }else{
+                console.log("ion know");
             }
             break;
         
@@ -484,6 +489,8 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
         case 'ArrowUp':
             if(enemy1.position.y < 551 && enemy1.position.y > 550){
                 enemy1.velocity.y = -10;
+            }else{
+                console.log("ion know");
             }
             break;
     }
@@ -512,7 +519,7 @@ window.addEventListener("keyup", (event) => {
             break;
         case 'v':
             enemy1.blocking = false;
-    
+            break;
     }
 
 })
