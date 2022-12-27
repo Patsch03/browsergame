@@ -428,7 +428,7 @@ window.addEventListener("keydown", (event) => { // adds event listener to window
 
     switch(event.key){
         case 'd':
-            keys.d.pressed = true; // sets the pressed value to true (doesnt change until key is let go )
+            keys.d.pressed = true; // sets the pressed value to true (doesnt change until key is let go ) s
             player1.lastKey = 'd';
             player1.facing = "right";
             break;
