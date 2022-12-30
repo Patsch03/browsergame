@@ -188,8 +188,8 @@ function rightRectangularCollision({rectangle1, rectangle2}){
 
     return(
         rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width 
-        && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-        && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+        // && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+        // && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
 
@@ -218,8 +218,8 @@ function rightRectangularCollisionKick({rectangle1, rectangle2}){
 
     return(
         rightSideOfKickBox >= leftSideOfEnemy && leftSideOfKickBox <= rightSideOfEnemy
-        && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
-        && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
+        // && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
+        // && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
 
@@ -232,8 +232,8 @@ function leftRectangularCollisionKick({rectangle1, rectangle2}){
     rightSideOfPlayer = rectangle1.position.x + rectangle1.width
     return(
         leftSideOfKickBox <= rightSideOfEnemy && rightSideOfPlayer >= leftSideOfEnemy
-        && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
-        && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
+        // && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
+        // && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
 }
@@ -245,8 +245,8 @@ function leftRectangularCollision({rectangle1, rectangle2}){
     rightSideOfPlayer = rectangle1.position.x + rectangle1.width
         return(
             leftSideOfAttackBox <= rightSideOfEnemy && rightSideOfPlayer > leftSideOfEnemy
-            && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-            && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+            // && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+            // && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
             && rectangle1.isAttacking
         )
     }
@@ -296,6 +296,9 @@ function animate(){
         window.requestAnimationFrame(animate); // makes a function that calls itself and will run infinitely 
     }
 
+
+    console.log("left side of enemy kick box x" + (enemy1.kickBox.position.x - 50))
+    console.log("right side of player hitbox" + (player1.position.x + player1.width))
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
     player1.update(); // calls update function which currently changes their position based on velocity 
@@ -316,8 +319,6 @@ function animate(){
         enemy1.velocity.x = 1;
     }
 
-    // console.log(player1.position.x);
-    console.log(player1.position.y);
 
 
     //collision detection 
