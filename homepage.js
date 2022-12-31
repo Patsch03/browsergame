@@ -10,6 +10,8 @@ canvas.height = 700;
 c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
 // problem jump hitbox
+// problem is within the y axis
+// 99% sure the problem isnt in the iff statements that check for collisions
 
 const gravity = .2; // gravity constant applied to velocity of players
 
@@ -188,8 +190,8 @@ function rightRectangularCollision({rectangle1, rectangle2}){
 
     return(
         rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width 
-        // && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-        // && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+        && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
 
@@ -218,8 +220,8 @@ function rightRectangularCollisionKick({rectangle1, rectangle2}){
 
     return(
         rightSideOfKickBox >= leftSideOfEnemy && leftSideOfKickBox <= rightSideOfEnemy
-        // && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
-        // && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
+        && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
 
@@ -232,8 +234,8 @@ function leftRectangularCollisionKick({rectangle1, rectangle2}){
     rightSideOfPlayer = rectangle1.position.x + rectangle1.width
     return(
         leftSideOfKickBox <= rightSideOfEnemy && rightSideOfPlayer >= leftSideOfEnemy
-        // && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y
-        // && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
+        && rectangle1.kickBox.position.y + rectangle1.kickBox.height >= rectangle2.position.y // 
+        && rectangle1.kickBox.position.y <= rectangle2.position.y + rectangle2.height
         && rectangle1.isAttacking
     )
 }
@@ -245,8 +247,8 @@ function leftRectangularCollision({rectangle1, rectangle2}){
     rightSideOfPlayer = rectangle1.position.x + rectangle1.width
         return(
             leftSideOfAttackBox <= rightSideOfEnemy && rightSideOfPlayer > leftSideOfEnemy
-            // && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-            // && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+            && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+            && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
             && rectangle1.isAttacking
         )
     }
@@ -297,8 +299,8 @@ function animate(){
     }
 
 
-    console.log("left side of enemy kick box x" + (enemy1.kickBox.position.x - 50))
-    console.log("right side of player hitbox" + (player1.position.x + player1.width))
+    console.log("bottom of player" + (player1.position.y + player1.height))
+    console.log("top of enemy kickbox" + (enemy1.kickBox.position.y - enemy1.kickBox.height))
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
     player1.update(); // calls update function which currently changes their position based on velocity 
