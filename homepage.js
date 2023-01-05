@@ -43,7 +43,7 @@ class player {
         this.kickBox = { 
             position: { // same as attack just lower on the player
                 x: this.position.x, 
-                y: (80),
+                y: this.position.y + (this.height - 50),
             },
             width: 100,
             height: 50,
@@ -90,7 +90,7 @@ class player {
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x // sets position based on player model
         this.attackBox.position.y = this.position.y
         this.kickBox.position.x = this.position.x;
-        this.kickBox.position.y = this.position.y + this.height;
+        this.kickBox.position.y = this.position.y + (this.height - 50);
 
         this.position.y += this.velocity.y; // changing the y position based on velocity
         this.position.x += this.velocity.x;
