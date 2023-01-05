@@ -11,7 +11,7 @@ c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
 // problem jump hitbox
 // problem is within the y axis
-// 99% sure the problem isnt in the iff statements that check for collisions
+// 99% sure the problem is in the if statements
 
 const gravity = .2; // gravity constant applied to velocity of players
 
@@ -27,7 +27,7 @@ class player {
         this.facing = facing;
         this.lastKey; // last key pressed in relation to the entity being referenced
         this.attackBox = { // attack //
-            position: {
+            position: { // position 
                 x: this.position.x, 
                 y: this.position.y,
             },
@@ -35,18 +35,18 @@ class player {
             height: 50,
             offset,
         }
-        this.color = color
-        this.isAttacking = false;
-        this.health = 100;
-        this.blocking = false;
-        this.blockTimer = 0;
-        this.kickBox = {
-            position: {
+        this.color = color // color
+        this.isAttacking = false; // if entity is attacking or not
+        this.health = 100; // health
+        this.blocking = false; // if the entity is blocking
+        this.blockTimer = 0; // stopping player from blocking all the time change this to block health
+        this.kickBox = { 
+            position: { // same as attack just lower on the player
                 x: this.position.x, 
-                y: this.position.y - this.height,
+                y: (80),
             },
             width: 100,
-            height: -50,
+            height: 50,
             offset,
         }
         this.attackType = "";
