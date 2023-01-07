@@ -24,6 +24,25 @@ class player {
         this.velocity = velocity; // speed that player moves in any given directon
         this.width = 50
         this.height = 150 
+    }
+
+
+
+    draw(){ // function in player class that displays it on screen
+    }
+
+    update(){ // applied on animation frames. Redraws the player in a different position 
+        this.draw()
+    }
+}
+
+
+class Fighter {
+    constructor({position, velocity, color, offset, facing}){
+        this.position = position
+        this.velocity = velocity; // speed that player moves in any given directon
+        this.width = 50
+        this.height = 150 
         this.facing = facing;
         this.lastKey; // last key pressed in relation to the entity being referenced
         this.attackBox = { // attack //
@@ -52,6 +71,8 @@ class player {
         this.attackType = "";
         
     }
+
+
 
     draw(){ // function in player class that displays it on screen
         c.fillStyle = this.color // color of player
@@ -114,7 +135,8 @@ class player {
     }
 }
 
-const player1 = new player({ // creating new player
+
+const player1 = new Fighter({ // creating new player
     position: {
         x: 250,
         y: 250,
@@ -133,7 +155,7 @@ const player1 = new player({ // creating new player
 
 player1.draw() // displays the player created above
 
-const enemy1 = new player({ // creating player
+const enemy1 = new Fighter({ // creating player
     position: {
         x: 700,
         y: 250,
