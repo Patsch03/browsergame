@@ -26,6 +26,8 @@ const background = new Sprite({
     imageSrc: './img/background/background_layer_1_1000x700.png'
     
 })
+
+
 const player1 = new Fighter({ // creating new player
     position: {
         x: 250,
@@ -88,10 +90,6 @@ const keys = {
     },
 
 }
-
-
-
-
 
 function rightRectangularCollision({rectangle1, rectangle2}){
 
@@ -215,7 +213,7 @@ function animate(){
     console.log("top of enemy kickbox" + (enemy1.kickBox.position.y - enemy1.kickBox.height))
     c.fillStyle = 'black' // sets background color
     c.fillRect(0, 0, canvas.width, canvas.height); // redraws background
-    background.update()
+    background.update();
     player1.update(); // calls update function which currently changes their position based on velocity 
     enemy1.update(); // ^^
 
