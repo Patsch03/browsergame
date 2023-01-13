@@ -9,15 +9,11 @@ canvas.height = 700;
 
 c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
-// problem jump hitbox
-// problem is within the y axis
-// 99% sure the problem is in the if statements
-
 const gravity = .2; // gravity constant applied to velocity of players
 
 
 
-//player object 
+//sprite object 
 const background = new Sprite({
     position: {
         x: 0, 
