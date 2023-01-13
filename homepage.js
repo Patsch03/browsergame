@@ -9,7 +9,7 @@ canvas.height = 700;
 
 c.fillRect(0, 0, canvas.width, canvas.height); // draws canvas
 
-const gravity = .2; // gravity constant applied to velocity of players
+const gravity = .3; // gravity constant applied to velocity of players
 
 
 
@@ -37,7 +37,7 @@ const player1 = new Fighter({ // creating new player
         x: 0,
         y: 0,
     },
-    color: "red",
+    color: "orange",
     facing: "right",
 })
 
